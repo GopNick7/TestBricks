@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TestBricks</string>
+    <string name="row">Рядки</string>
+    <string name="column">Столбцы</string>
+    <string name="bricksOne">Одинарный</string>
+    <string name="bricksTwo">Двойной</string>
+    <string name="bricksThree">Тройной</string>
+    <string name="btnCheck">Проверить</string>
+    <string name="btnSetVoids">Задать</string>
+</resources>

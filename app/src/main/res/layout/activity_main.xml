@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context="com.justappp.nekitpc.testbricks.MainActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/layout_style"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Введите нужное количество рядков и столбцов"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingTop="16dp">
+
+            <EditText
+                android:id="@+id/edt_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_style"
+                android:ems="10"
+                android:hint="@string/row"
+                android:inputType="number"
+                android:padding="16dp" />
+
+            <EditText
+                android:id="@+id/edt_column"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_style"
+                android:ems="10"
+                android:hint="@string/column"
+                android:inputType="number"
+                android:padding="16dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/layout_style"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Введите нужное количество кирпичей"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingTop="16dp">
+
+            <EditText
+                android:id="@+id/edt_one_bricks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_style"
+                android:ems="10"
+                android:hint="@string/bricksOne"
+                android:inputType="number"
+                android:padding="16dp" />
+
+            <EditText
+                android:id="@+id/edt_two_bricks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_style"
+                android:ems="10"
+                android:hint="@string/bricksTwo"
+                android:inputType="number"
+                android:padding="16dp" />
+
+            <EditText
+                android:id="@+id/edt_three_bricks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_style"
+                android:ems="10"
+                android:hint="@string/bricksThree"
+                android:inputType="number"
+                android:padding="16dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/layout_style">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="Можно проверить без задиния пустот, или задать определеные пустоты" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingTop="16dp">
+
+            <Button
+                android:id="@+id/btn_check"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:padding="16dp"
+                android:text="@string/btnCheck" />
+
+            <Button
+                android:id="@+id/btn_set_voids"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:padding="16dp"
+                android:text="@string/btnSetVoids" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
