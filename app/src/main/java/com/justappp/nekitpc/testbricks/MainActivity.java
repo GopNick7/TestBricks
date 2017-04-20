@@ -3,8 +3,6 @@ package com.justappp.nekitpc.testbricks;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,7 +21,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         initializationWidgets();
-        editTextListener();
 
         btnCheck.setOnClickListener(this);
         btnSetVoids.setOnClickListener(this);
@@ -31,8 +28,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     /**
      * Метод обработки нажатия кнопок
-     *
-     * @param v
      */
     @Override
     public void onClick(View v) {
@@ -43,25 +38,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_set_voids:
                 break;
         }
-
-    }
-
-    private void editTextListener() {
-        edtRow.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
     }
 
     /**
@@ -69,12 +45,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void checkMethod() {
         try {
+            //Переменной присваивается произведение рядов на столбцы
             int sumArea = Integer.parseInt(edtRow.getText().toString()) * Integer.parseInt(edtColumn.getText().toString());
-            int sumAllBricks = (Integer.parseInt(edtOneBricks.getText().toString()))
-                    + ((Integer.parseInt(edtTwoBricks.getText().toString()) * 2))
-                    + ((Integer.parseInt(edtThreeBricks.getText().toString()) * 3));
 
-            if (sumArea == sumAllBricks) {
+            int bricksOne;
+            int bricksTwo;
+            int bricksThree;
+
+            //Условные операторы, проверяют, ввел ли пользователь какое либо число в виджет.
+            //Если не ввел, то переменная получает значение ноль.
+            //Если ввел, то переменная получает введеное значение.
+            if (edtOneBricks.getText().toString().equals("")) {
+                bricksOne = 0;
+            } else bricksOne = Integer.parseInt(edtOneBricks.getText().toString());
+
+            if (edtTwoBricks.getText().toString().equals("")) {
+                bricksTwo = 0;
+            } else bricksTwo = Integer.parseInt(edtTwoBricks.getText().toString()) * 2;
+
+            if (edtThreeBricks.getText().toString().equals("")) {
+                bricksThree = 0;
+            } else bricksThree = Integer.parseInt(edtThreeBricks.getText().toString()) * 3;
+
+            //Переменной присваивается сумма всех кирпичей
+            int sumAllBricks = bricksOne + bricksTwo + bricksThree;
+
+            //Условный опрератор проверяет, что если количество столбцов равно 2, и пользователь ввел какое-то кол-во кирпичей длиной 3,
+            //то вывод текста в виджете txtAnswer будет "NO", так как такой кирпич нельзя поместить горизонтально.
+            //Если количество столбцов равно 1, и пользователь ввел данные в поле для кирпичей длиной 2,
+            //то вывод текста будет "NO"
+            //Если произведение рядов и столбцов равно сумме всех кирпичей, при условии, что все условия соблюдены,
+            //то выводится текст "YES"
+            //При всех другий условиях будет выводится "NO"
+            if (Integer.parseInt(edtColumn.getText().toString()) == 2 && !edtThreeBricks.getText().toString().equals("")) {
+                txtAnswer.setText(R.string.no);
+            } else if (Integer.parseInt(edtColumn.getText().toString()) == 1 && !edtTwoBricks.getText().toString().equals("") || !edtThreeBricks.getText().toString().equals("")) {
+                txtAnswer.setText(R.string.no);
+            } else if (sumArea == sumAllBricks) {
                 txtAnswer.setText(R.string.yes);
             } else txtAnswer.setText(R.string.no);
         } catch (NumberFormatException e) {
@@ -82,7 +89,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } catch (Exception e) {
             txtAnswer.setText(R.string.exception);
         }
-
     }
 
     /**

@@ -11,4 +11,7 @@
     <string name="yes">Yes</string>
     <string name="number_format_exception">Вы заполнили не все поля.\nВведите их и попробуйте еще раз.</string>
     <string name="exception">Произошла ошибка.\nПопробуйте ввести данные еще раз.</string>
+    <string name="enter_row_column">Введите нужное количество рядков и столбцов</string>
+    <string name="enter_bricks">Введите нужное количество кирпичей</string>
+    <string name="check_or_set_voids">Можно проверить без задиния пустот, или задать определеные пустоты</string>
 </resources>
