@@ -149,7 +149,7 @@
                 android:layout_weight="1"
                 android:padding="16dp"
                 android:text="@string/btn_check"
-                style="@style/AppTheme"/>
+                style="@style/AppTheme" />
 
             <Button
                 android:id="@+id/btn_set_voids"
