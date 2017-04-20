@@ -143,23 +143,25 @@
 
             <Button
                 android:id="@+id/btn_check"
-                android:layout_width="0dp"
+                style="@style/AppTheme"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
                 android:layout_weight="1"
-                android:padding="16dp"
+                android:padding="8dp"
                 android:text="@string/btn_check"
-                style="@style/AppTheme" />
+                />
 
             <Button
                 android:id="@+id/btn_set_voids"
-                android:layout_width="0dp"
+                style="@style/AppTheme"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_weight="1"
-                android:padding="16dp"
+                android:padding="8dp"
                 android:text="@string/btn_set_voids"
-                style="@style/AppTheme"/>
+                />
 
         </LinearLayout>
     </LinearLayout>

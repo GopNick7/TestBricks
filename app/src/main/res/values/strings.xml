@@ -6,7 +6,7 @@
     <string name="bricks_two">Two</string>
     <string name="bricks_three">Three</string>
     <string name="btn_check">Check</string>
-    <string name="btn_set_voids">Set Voids</string>
+    <string name="btn_set_voids">Set voids</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="number_format_exception">Вы заполнили не все поля.\nВведите их и попробуйте еще раз.</string>
