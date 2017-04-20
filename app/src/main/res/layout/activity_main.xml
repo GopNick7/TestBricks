@@ -43,7 +43,7 @@
                 android:ems="10"
                 android:hint="@string/row"
                 android:inputType="number"
-                android:padding="16dp" />
+                android:padding="8dp" />
 
             <EditText
                 android:id="@+id/edt_column"
@@ -55,7 +55,7 @@
                 android:ems="10"
                 android:hint="@string/column"
                 android:inputType="number"
-                android:padding="16dp" />
+                android:padding="8dp" />
 
         </LinearLayout>
     </LinearLayout>
@@ -89,9 +89,9 @@
                 android:layout_weight="1"
                 android:background="@drawable/edit_text_style"
                 android:ems="10"
-                android:hint="@string/bricksOne"
+                android:hint="@string/bricks_one"
                 android:inputType="number"
-                android:padding="16dp" />
+                android:padding="8dp" />
 
             <EditText
                 android:id="@+id/edt_two_bricks"
@@ -102,9 +102,9 @@
                 android:layout_weight="1"
                 android:background="@drawable/edit_text_style"
                 android:ems="10"
-                android:hint="@string/bricksTwo"
+                android:hint="@string/bricks_two"
                 android:inputType="number"
-                android:padding="16dp" />
+                android:padding="8dp" />
 
             <EditText
                 android:id="@+id/edt_three_bricks"
@@ -114,9 +114,9 @@
                 android:layout_weight="1"
                 android:background="@drawable/edit_text_style"
                 android:ems="10"
-                android:hint="@string/bricksThree"
+                android:hint="@string/bricks_three"
                 android:inputType="number"
-                android:padding="16dp" />
+                android:padding="8dp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -148,7 +148,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_weight="1"
                 android:padding="16dp"
-                android:text="@string/btnCheck" />
+                android:text="@string/btn_check" />
 
             <Button
                 android:id="@+id/btn_set_voids"
@@ -157,9 +157,18 @@
                 android:layout_marginLeft="8dp"
                 android:layout_weight="1"
                 android:padding="16dp"
-                android:text="@string/btnSetVoids" />
+                android:text="@string/btn_set_voids" />
 
         </LinearLayout>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtAnswer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"/>
 
 </LinearLayout>
