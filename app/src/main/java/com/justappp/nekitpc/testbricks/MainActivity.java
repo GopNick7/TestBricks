@@ -7,29 +7,48 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+/**
+ * Приложение разработано в среде разработки Android Studio 2.3.1
+ *
+ * Автор: Романенко Никита
+ * email: nekit88j@gmail.com
+ *
+ * Программа выполняет проверку возможности построить стены из задонного количества кирпичей задонного размера.
+ * Учтены все условия, конфигурация стены не ограничена: она может разбиться на несколько частей, может показаться нестабильной, может иметь отверстия.
+ * Параметры стены и размеры кирпичей настраиваются программно в редакторе текста (EditText).
+ * Результат проверки печатается в текстовом виде, либо «YES» (стена может быть построена), либо «NO» (стена не может быть построена).
+ *
+ * Для ввода значение количества рядов и количества столбцов, следует вводить данные в редакторе текста (Row) для рядов и (Column) для столбцов.
+ *
+ * Для ввода заданного количества кирпичей заданного размера, следует вводить данные в поля редактора текста (One) для одинарных кирпичей,(Two) для двойных и (Three) для тройных.
+ *
+ * Для коррестности работы приложения, следует обратить внимание на то, что ввод конфигурации стены осуществляется в редакторе текста (Enter wall configuration)
+ * Вводить можно с переносом или разделяя ряды нулями.
+ * Для ввода отверстия или разделения стены на несколько частей нужно ввести - 0, для ввода кирпича подходит любая цифра > 0
+ * Пример:
+ *  10101
+ *  11111  =  10101011111011111
+ *  11111
+ *
+ *  В данном примере, описана стена размером три ряда на пять столбцов, с двумя отвертстиями в верхнем ряде.
+ *
+ *  После ввода заданного количества рядов, столбцов, кирпичей заданного размера и конфигурации стены, для получения результата следует нажть на кнопку "Check"
+ */
+
+public class MainActivity extends AppCompatActivity{
 
     EditText edtRow, edtColumn, edtOneBricks, edtTwoBricks, edtThreeBricks, edtRowAndColumnEnter;
-    Button btnCheck, btnSetVoids;
+    Button btnCheck;
     TextView txtAnswer;
 
     int sumArea;
     int bricksOne;
     int bricksTwo;
     int bricksThree;
-
-
-//    int bricksOne;
-//    int bricksTwo;
-//    int bricksThree;
-//    int counterBricksOne;
-//    int counterBricksTwo;
-//    int counterBricksThree;
 
     List<Character> matrixRowAndColumn = new ArrayList<>();
     List<Integer> arrLineRowAndColumn = new ArrayList<>();
@@ -40,44 +59,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        initializationWidgets();
+        initWidgets();
 
-        btnCheck.setOnClickListener(this);
-        btnSetVoids.setOnClickListener(this);
+        btnCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkMethod();
+
+                matrixRowAndColumn.clear();
+                arrLineRowAndColumn.clear();
+            }
+        });
     }
 
     /**
-     * Метод обработки нажатия кнопок
+     * Метод заполнение массивов значениями из EditTExt edtRowAndColumnEnter
      */
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_check:
-                break;
-            case R.id.btn_set_voids:
-                putArr();
-
-                String s = String.valueOf(matrixRowAndColumn);
-                Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
-                s = String.valueOf(arrLineRowAndColumn);
-                Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
-                matrixRowAndColumn.clear();
-                arrLineRowAndColumn.clear();
-                break;
-        }
-    }
-
-    private void putArr() {
+    private void putInArr() {
+        //инициализируем переменную значением с поля ввода стены
         String str = String.valueOf(edtRowAndColumnEnter.getText());
+        //все переносы когда заканчивается ряд замещаем нулями
         String array = str.replaceAll("\n", "0");
+        //инициализирую char массив данными.
         char[] myCharArray = array.toCharArray();
 
+        //заполняю массив matrixRowAndColumn данными из массива myCharArray
         for (int i = 0; i < myCharArray.length; i++) {
             matrixRowAndColumn.add(i, myCharArray[i]);
         }
 
+        //объявляю переменую - счетчик для заполнения им массива arrLineRowAndColumn
         int counter = 0;
 
+        //цикл проходит по массиву matrixRowAndColumn, и если текущий индекс массива больше нуля, инкрементирует счетчик.
+        //иначе добавляет значение счетчика в массив и сбрасывает его для следующих шагов
         for (int i = 0; i < matrixRowAndColumn.size(); i++) {
             if (Integer.parseInt(String.valueOf(matrixRowAndColumn.get(i))) > 0) {
                 counter++;
@@ -86,12 +101,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 counter = 0;
             }
         }
+        //добавляем последнее значение счетчика в массив
         arrLineRowAndColumn.add(counter);
-        someMethod();
     }
 
-    private void someMethod() {
-
+    /**
+     * Метод присвоения значений примитивам, которые соответсвуют размерам кирпичей
+     */
+    private void initPrimitiv() {
+        //усовные операторы проверяют, если место под ввод данных для кирпичей пустое,
+        //то инициализирует его 0, иначе присваивает значение с поля ввода.
         if (edtOneBricks.getText().toString().equals("")) {
             bricksOne = 0;
         } else bricksOne = Integer.parseInt(edtOneBricks.getText().toString());
@@ -103,150 +122,117 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (edtThreeBricks.getText().toString().equals("")) {
             bricksThree = 0;
         } else bricksThree = Integer.parseInt(edtThreeBricks.getText().toString());
+    }
 
-        for (int i = 0; i < arrLineRowAndColumn.size(); i++) {
-            for (int j = arrLineRowAndColumn.size(); j > 0; j--) {
-                if (bricksThree > 0 || bricksTwo > 0 || bricksOne > 0) {
-                    if (arrLineRowAndColumn.get(i) >= 3) {
-                        arrLineRowAndColumn.set(i, arrLineRowAndColumn.get(i) - 3);
+    /**
+     * Метод вставки кирпичей в пустые места
+     */
+    private void insertBricksInEmptySpace() {
+        // вызов метода присвоения значений примитивам
+        initPrimitiv();
+        // вызов метода заполнения массивов значениями из EditTExt edtRowAndColumnEnter
+        putInArr();
+
+        //цикл проходится по массиву matrixRowAndColumn
+        for (int i = 0; i < matrixRowAndColumn.size(); i++) {
+            // цикл проходится по массиву arrLineRowAndColumn
+            for (int j = 0; j < arrLineRowAndColumn.size(); j++) {
+                //при условии, что если есть тройные кирпичи проходим в следующий условный оператор
+                if (bricksThree > 0) {
+                    //при условии, что текущее значение индекса массива arrLineRowAndColumn больше или равна 3,
+                    //мы это значение уменьшаем на 3 и убираем один кирпич из суммы тройных кирпичей
+                    //остальные циклы выполняют такую же работу, только для двойных кирпичей и одинарных
+                    if (arrLineRowAndColumn.get(j) >= 3) {
+                        arrLineRowAndColumn.set(j, arrLineRowAndColumn.get(j) - 3);
                         bricksThree--;
-                    } else if (arrLineRowAndColumn.get(i) == 2) {
-                        arrLineRowAndColumn.set(i, arrLineRowAndColumn.get(i) - 2);
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < matrixRowAndColumn.size(); i++) {
+            for (int j = 0; j < arrLineRowAndColumn.size(); j++) {
+                if (bricksTwo > 0) {
+                    if (arrLineRowAndColumn.get(j) >= 2) {
+                        arrLineRowAndColumn.set(j, arrLineRowAndColumn.get(j) - 2);
                         bricksTwo--;
-                    } else if (arrLineRowAndColumn.get(i) == 1){
-                        arrLineRowAndColumn.set(i, arrLineRowAndColumn.get(i) - 1);
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < matrixRowAndColumn.size(); i++) {
+            for (int j = 0; j < arrLineRowAndColumn.size(); j++) {
+                if (bricksOne > 0) {
+                    if (arrLineRowAndColumn.get(j) >= 1) {
+                        arrLineRowAndColumn.set(j, arrLineRowAndColumn.get(j) - 1);
                         bricksOne--;
-                        break;
                     }
                 }
             }
         }
     }
 
-
-//    private void someMethod() {
-//
-//
-//        // Если поля "Ряд" , "Колонка" пустые, то ответ будет "НЕТ"
-//        if (edtRow.getText().toString().equals("") || edtColumn.getText().toString().equals("")) {
-//            txtAnswer.setText(R.string.no);
-//            return;
-//        } else
-//            sumArea = Integer.parseInt(edtRow.getText().toString()) * Integer.parseInt(edtColumn.getText().toString());
-//
-//
-//        // Если поле "Ввод кирпичей" пустое, то ответ будет "НЕТ"
-//        if (edtRowAndColumnEnter.getText().toString().equals("")) {
-//            txtAnswer.setText(R.string.no);
-//            // Если произведение рядов на столбцы не равно общему кол-ву заполненых ячеек кирпичами, то ответ будет "НЕТ"
-//        } else if (sumArea != matrixRowAndColumn.size()) {
-//            txtAnswer.setText(R.string.no);
-//        } else txtAnswer.setText(R.string.yes);
-//
-//
-//        if (edtOneBricks.getText().toString().equals("")) {
-//            bricksOne = 0;
-//        } else bricksOne = Integer.parseInt(edtOneBricks.getText().toString());
-//
-//        if (edtTwoBricks.getText().toString().equals("")) {
-//            bricksTwo = 0;
-//        } else bricksTwo = Integer.parseInt(edtTwoBricks.getText().toString()) * 2;
-//
-//        if (edtThreeBricks.getText().toString().equals("")) {
-//            bricksThree = 0;
-//        } else bricksThree = Integer.parseInt(edtThreeBricks.getText().toString()) * 3;
-//
-//
-//    }
-
-//    private void hardMethod(){
-//        // Если есть тройной кирпич, заходим
-//        if (bricksThree > 0 & bricksTwo > 0 & bricksOne > 0) {
-//            int count = 0;
-//            // Проходимся по циклу
-//            for (int i = 0; i < matrixRowAndColumn.size(); i++) {
-//                if (count < 4) {
-//                    // если текущий индекс массива > 0
-//                    // счетчик итерируется
-//                    if (matrixRowAndColumn.get(i) > 0) {
-//                        count++;
-//                        // если счетчик = 3, то отнимаем от тройный одно чмсло
-//                        if (count == 3) {
-//                            bricksThree--;
-//                        }
-//                        // если же текущий индекс массива < 0
-//                        // счетчик сбрасывается
-//                    } else {
-//                        count = 0;
-//                    }
-//                }
-//            }
-//        }
-//    }
-
-
     /**
-     * Метод позволяет проверить полностью ли заполняется стена кирпичами, при условии, что она без просветов и прямоугольной формы.
+     * Метод проверки всех условий для вывода текса "YES" или "NO"
      */
-//    private void checkMethod() {
-//
-//        int sumArea;
-//        int row;
-//        int column;
-//
-//        try {
-//            row = Integer.parseInt(edtRow.getText().toString());
-//            column = Integer.parseInt(edtColumn.getText().toString());
-//            //Переменной присваивается произведение рядов на столбцы
-//            sumArea = row * column;
-//
-//            int bricksOne;
-//            int bricksTwo;
-//            int bricksThree;
-//
-//            //Условные операторы, проверяют, ввел ли пользователь какое либо число в виджет.
-//            //Если не ввел, то переменная получает значение ноль.
-//            //Если ввел, то переменная получает введеное значение.
-//            if (edtOneBricks.getText().toString().equals("")) {
-//                bricksOne = 0;
-//            } else bricksOne = Integer.parseInt(edtOneBricks.getText().toString());
-//
-//            if (edtTwoBricks.getText().toString().equals("")) {
-//                bricksTwo = 0;
-//            } else bricksTwo = Integer.parseInt(edtTwoBricks.getText().toString()) * 2;
-//
-//            if (edtThreeBricks.getText().toString().equals("")) {
-//                bricksThree = 0;
-//            } else bricksThree = Integer.parseInt(edtThreeBricks.getText().toString()) * 3;
-//
-//            //Переменной присваивается сумма всех кирпичей
-//            int sumAllBricks = bricksOne + bricksTwo + bricksThree;
-//
-//            //Условный опрератор проверяет, что если количество столбцов равно 2, и пользователь ввел какое-то кол-во кирпичей длиной 3,
-//            //то вывод текста в виджете txtAnswer будет "NO", так как такой кирпич нельзя поместить горизонтально.
-//            //Если количество столбцов равно 1, и пользователь ввел данные в поле для кирпичей длиной 2,
-//            //то вывод текста будет "NO"
-//            //Если произведение рядов и столбцов равно сумме всех кирпичей, при условии, что все условия соблюдены,
-//            //то выводится текст "YES"
-//            //При всех другий условиях будет выводится "NO"
-//            if (Integer.parseInt(edtColumn.getText().toString()) == 2 && !edtThreeBricks.getText().toString().equals("")) {
-//                txtAnswer.setText(R.string.no);
-//            } else if (Integer.parseInt(edtColumn.getText().toString()) == 1 && !edtTwoBricks.getText().toString().equals("") || !edtThreeBricks.getText().toString().equals("")) {
-//                txtAnswer.setText(R.string.no);
-//            } else if (sumArea == sumAllBricks) {
-//                txtAnswer.setText(R.string.yes);
-//            } else txtAnswer.setText(R.string.no);
-//        } catch (NumberFormatException e) {
-//            txtAnswer.setText(R.string.number_format_exception);
-//        } catch (Exception e) {
-//            txtAnswer.setText(R.string.exception);
-//        }
-//    }
+    private void checkMethod() {
+        //Вызов метода вставки кирпичей в пустые места
+        insertBricksInEmptySpace();
+        try {
+
+            int row = Integer.parseInt(edtRow.getText().toString()); // количество рядов
+            int column = Integer.parseInt(edtColumn.getText().toString()); // количество колонок
+            sumArea = row * column; // произведение рядов и столбцов
+            int fillPlace = 0; // сумма места под кирпичи
+            int sumBricks = bricksOne + (bricksTwo * 2) + (bricksThree * 3); //сумма заполняемого кирпичами места
+            int resultMethodInsert = 0; // результат метода insertBricksInEmptySpace()
+
+            // получение суммы места под кирпичи
+            for (int i = 0; i < arrLineRowAndColumn.size(); i++) {
+                fillPlace += arrLineRowAndColumn.get(i);
+            }
+
+            // Если есть пустые EditText( ряд, столбец или ввод данных как будут размещаться кирпичи) то вывод сразу "NO",
+            // так как нельзя построить стену без рядов, столбцов или без кирпичей.
+            if (edtRow.getText().toString().equals("") || edtColumn.getText().toString().equals("") || edtRowAndColumnEnter.getText().toString().equals("")) {
+                txtAnswer.setText(R.string.no);
+                return;
+                // Если площадь стен не равна возможным местам под кирпичи, то ответ будет "NO"
+            } else if (sumArea != matrixRowAndColumn.size() - row + 1) {
+                txtAnswer.setText(R.string.no);
+                return;
+                // Если места под кирпичи не равны сумме кирпичей, то ответ будет "NO"
+            } else if (fillPlace != sumBricks) {
+                txtAnswer.setText(R.string.no);
+                return;
+            }
+
+            // получение результата от метода insertBricksInEmptySpace()
+            for (int i = 0; i < arrLineRowAndColumn.size(); i++) {
+                resultMethodInsert += arrLineRowAndColumn.get(i);
+            }
+
+            //При условии, что результат метода insertBricksInEmptySpace() будер = 0,
+            // в TextView выведится "YES", в любом другом случае выведится "NO"
+            if (resultMethodInsert != 0) {
+                txtAnswer.setText(R.string.no);
+                return;
+            } else txtAnswer.setText(R.string.yes);
+
+            // для упрощения кода, перехватываю исключения
+            // если места под ряд или под колонку пустое, срабатывает перехват
+        } catch (NumberFormatException e) {
+            txtAnswer.setText(R.string.number_format_exception);
+        } catch (Exception e) {
+            txtAnswer.setText(R.string.exception);
+        }
+    }
 
     /**
      * Метод инициализации виджетов
      */
-    private void initializationWidgets() {
+
+    private void initWidgets() {
+        // инициализирую виджеты
         edtRow = (EditText) findViewById(R.id.edt_row);
         edtColumn = (EditText) findViewById(R.id.edt_column);
         edtOneBricks = (EditText) findViewById(R.id.edt_one_bricks);
@@ -255,7 +241,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         edtRowAndColumnEnter = (EditText) findViewById(R.id.edt_row_and_column_enter);
 
         btnCheck = (Button) findViewById(R.id.btn_check);
-        btnSetVoids = (Button) findViewById(R.id.btn_set_voids);
 
         txtAnswer = (TextView) findViewById(R.id.txtAnswer);
     }
