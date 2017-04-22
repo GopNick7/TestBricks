@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="@dimen/layout_padding"
     tools:context="com.justappp.nekitpc.testbricks.MainActivity">
 
 
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/layout_style"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/layout_padding">
 
         <TextView
             android:layout_width="wrap_content"
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:paddingTop="16dp">
+            android:paddingTop="@dimen/layout_padding">
 
             <EditText
                 android:id="@+id/edt_row"
@@ -63,10 +63,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/layout_padding"
         android:background="@drawable/layout_style"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/layout_padding">
 
         <TextView
             android:id="@+id/textView"
@@ -79,7 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:paddingTop="16dp">
+            android:paddingTop="@dimen/layout_padding">
 
             <EditText
                 android:id="@+id/edt_one_bricks"
@@ -123,10 +123,32 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/layout_padding"
         android:background="@drawable/layout_style"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/layout_padding">
+
+        <EditText
+            android:id="@+id/edt_row_and_column_enter"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/edit_text_style"
+            android:ems="10"
+            android:hint="@string/row_and_column_enter"
+            android:inputType="textMultiLine|number"
+            android:digits="0123456789\n"
+            android:lines="3"
+            android:padding="8dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_padding"
+        android:background="@drawable/layout_style"
+        android:orientation="vertical"
+        android:padding="@dimen/layout_padding">
 
         <TextView
             android:id="@+id/textView2"
@@ -139,7 +161,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:paddingTop="16dp">
+            android:paddingTop="@dimen/layout_padding">
 
             <Button
                 android:id="@+id/btn_check"
@@ -149,8 +171,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_weight="1"
                 android:padding="8dp"
-                android:text="@string/btn_check"
-                />
+                android:text="@string/btn_check" />
 
             <Button
                 android:id="@+id/btn_set_voids"
@@ -160,8 +181,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_weight="1"
                 android:padding="8dp"
-                android:text="@string/btn_set_voids"
-                />
+                android:text="@string/btn_set_voids" />
 
         </LinearLayout>
     </LinearLayout>

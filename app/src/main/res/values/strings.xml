@@ -14,4 +14,8 @@
     <string name="enter_row_column">Введите нужное количество рядков и столбцов</string>
     <string name="enter_bricks">Введите нужное количество кирпичей</string>
     <string name="check_or_set_voids">Можно проверить без задиния пустот, или задать определеные пустоты</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="row_and_column_enter">Enter rows * columns</string>
 </resources>
